@@ -16,9 +16,13 @@
   "author": "joneldiablo",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "@farm-js/react-goat": "^1.0.3",
+    "bootstrap": "^5.3.3",
+    "dbl-utils": "^1.0.8"
   },
   "devDependencies": {
+    "@types/bootstrap": "^5.2.10",
+    "@types/react-router-dom": "^5.3.3",
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "@testing-library/dom": "^10.4.0",
@@ -60,5 +64,30 @@
     "CommonJS",
     "frontend",
     "react"
-  ]
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js",
+      "types": "./dist/types/index.d.ts",
+      "source": "./src/index.ts"
+    },
+    "./ts/*": {
+      "types": "./dist/types/index.d.ts",
+      "source": "./src"
+    },
+    "./esm/*": "./dist/esm/*",
+    "./cjs/*": "./dist/cjs/*",
+    "./esm/actions/action": "./dist/esm/actions/action.js",
+    "./esm/index": "./dist/esm/index.js",
+    "./esm/navigation/navigation": "./dist/esm/navigation/navigation.js",
+    "./cjs/actions/action": "./dist/cjs/actions/action.js",
+    "./cjs/index": "./dist/cjs/index.js",
+    "./cjs/navigation/navigation": "./dist/cjs/navigation/navigation.js"
+  },
+  "directories": {
+    "ts": "src",
+    "esm": "dist/esm",
+    "cjs": "dist/cjs"
+  }
 }

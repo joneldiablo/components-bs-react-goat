@@ -68,6 +68,7 @@ if [ $? -ne 0 ]; then
   exit 1
 fi
 
+node exports.js
 # Update version and capture the new version
 new_version=$(node update-version.js)
 
@@ -80,9 +81,9 @@ git push origin "$new_version"
 
 # Publish on npm
 if [ -n "$OTP" ]; then
-  npm publish --otp "$OTP"
+  npm publish --otp "$OTP" --access public
 else
-  npm publish
+  npm publish --access public
 fi
 
 # Switch back to the previous branch
