@@ -2,9 +2,14 @@ import React, { createRef } from "react";
 import { NavLink } from "react-router-dom";
 import Collapse from "bootstrap/js/dist/collapse";
 
-import { eventHandler, deepMerge, splitAndFlat } from "dbl-utils";
-import { extractNodeString } from "dbl-utils/dist/esm/extract-react-node-text";
-import { Goat, Icons, Component, ComponentProps, ComponentState, FloatingContainer } from "@farm-js/react-goat";
+import eventHandler from "dbl-utils/event-handler";
+import { deepMerge } from "dbl-utils/object-mutation";
+import { splitAndFlat } from "dbl-utils/utils";
+import { extractNodeString } from "dbl-utils/extract-react-node-text";
+import Goat from "@farm-js/react-goat/goat";
+import Icons from "@farm-js/react-goat/media/icons";
+import Component, { ComponentProps, ComponentState } from "@farm-js/react-goat/component";
+import FloatingContainer from "@farm-js/react-goat/containers/floating-container";
 
 export interface NavigationItem {
   active?: boolean;
