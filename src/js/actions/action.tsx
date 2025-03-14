@@ -1,7 +1,7 @@
 import resolveRefs from "dbl-utils/resolve-refs";
 import eventHandler from "dbl-utils/event-handler";
 import Component, { ComponentProps } from "@farm-js/react-goat/component";
-import Goat from "@farm-js/react-goat";
+import Goat from "@farm-js/react-goat/goat";
 
 
 interface ActionComponentProps extends ComponentProps {
