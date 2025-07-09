@@ -12,11 +12,11 @@ import {
 
 import { ptClasses } from "../prop-types";
 import fields from "../forms/fields";
-import Icons from "../media/icons";
+import Icons from "@farm-js/react-goat/media/icons";
 import Action from "../actions/action";
 import JsonRender from "../json-render";
 import Component from "../component";
-import FloatingContainer from '../containers/floating-container/floating-container';
+import FloatingContainer from '@farm-js/react-goat/containers/floating-container';
 
 /**
  * @typedef {Object} FormatOptions

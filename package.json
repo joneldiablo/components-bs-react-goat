@@ -20,7 +20,9 @@
     "@floating-ui/react": "^0.27.13",
     "@splidejs/react-splide": "^0.7.12",
     "bootstrap": "^5.3.3",
-    "dbl-utils": "^1.0.11"
+    "bytes": "^3.1.2",
+    "dbl-utils": "^1.0.11",
+    "lzma": "^2.3.2"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

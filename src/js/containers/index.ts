@@ -16,4 +16,12 @@ export const addContainers = (newContainers: Record<string, any>) => {
   Object.assign(CONTAINERS, newContainers);
 };
 
+export {
+  AlertContainer,
+  CardContainer,
+  ModalContainer,
+  OffcanvasContainer,
+  PanelContainer,
+};
+
 export default CONTAINERS;
