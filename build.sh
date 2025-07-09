@@ -89,4 +89,5 @@ fi
 # Switch back to the previous branch
 git checkout -
 
-# Show new versionecho "$new_version"
+# Show new version
+echo "$new_version"

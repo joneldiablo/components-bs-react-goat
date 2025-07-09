@@ -1,6 +1,6 @@
 {
   "name": "@farm-js/components-bs-react-goat",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description": "How did it get there?",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -146,4 +146,6 @@
   "directories": {
     "ts": "src",
     "esm": "dist/esm",
-    "cjs": "dist/cjs"}
+    "cjs": "dist/cjs"
+  }
+}
