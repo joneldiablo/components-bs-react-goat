@@ -16,7 +16,7 @@
   "author": "joneldiablo",
   "license": "ISC",
   "peerDependencies": {
-    "@farm-js/react-goat": "^1.0.5",
+    "@farm-js/react-goat": "^1.0.7",
     "@floating-ui/react": "^0.27.13",
     "@splidejs/react-splide": "^0.7.12",
     "bootstrap": "^5.3.3",
@@ -154,4 +154,5 @@
     "ts": "src",
     "esm": "dist/esm",
     "cjs": "dist/cjs"
-  }}
+  }
+}
