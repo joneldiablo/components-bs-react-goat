@@ -1,27 +1,26 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import { eventHandler } from "dbl-utils";
 import Component, { nameSuffixes } from "../../complex-component";
+import type { ComponentProps } from "../../component";
 
 import schema from "./panel-schema.json";
 
-export default class PanelContainer extends Component {
+export interface PanelContainerProps extends ComponentProps {
+  breakpoint?: string;
+  contentTop?: Record<string, any>;
+  icon?: string;
+  iconSize?: string | number;
+  link?: string;
+  logo?: string;
+  type?: "push" | "reveal";
+  width?: string | number;
+}
 
-  static propTypes = {
-    ...Component.propTypes,
-    breakpoint: PropTypes.string,
-    contentTop: PropTypes.object,
-    icon: PropTypes.string,
-    iconSize: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    link: PropTypes.string,
-    logo: PropTypes.string,
-    type: PropTypes.oneOf(['push', 'reveal']),
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  }
+export default class PanelContainer extends Component<PanelContainerProps> {
 
   static jsClass = 'PanelContainer';
-  static defaultProps = {
+  static defaultProps: Partial<PanelContainerProps> = {
     ...Component.defaultProps,
     schema,
     definitions: {},

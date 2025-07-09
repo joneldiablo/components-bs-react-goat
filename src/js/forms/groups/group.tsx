@@ -1,20 +1,19 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
 import fieldComponents from "../fields";
-import Component from "../../component";
+import Component, { ComponentProps } from "../../component";
 
-export default class Group extends Component {
+export interface GroupProps extends ComponentProps {
+  label?: string;
+  labelClasses?: string;
+  fieldClasses?: string;
+  fields?: any[];
+}
+
+export default class Group extends Component<GroupProps> {
 
   static jsClass = 'Group';
-  static propTypes = {
-    ...Component.propTypes,
-    label: PropTypes.string,
-    labelClasses: PropTypes.string,
-    fieldClasses: PropTypes.string,
-    fields: PropTypes.array
-  }
-  static defaultProps = {
+  static defaultProps: Partial<GroupProps> = {
     ...Component.defaultProps,
     fieldClasses: 'mb-3',
     fields: []

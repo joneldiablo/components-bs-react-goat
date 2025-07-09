@@ -1,17 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import Field from "./field";
 
-export default class DropFileField extends Field {
+export interface DropFileFieldProps {
+  onDragOver?: (e: React.DragEvent<HTMLInputElement>) => void;
+  onDragLeave?: (e: React.DragEvent<HTMLInputElement>) => void;
+  onDrop?: (e: React.DragEvent<HTMLInputElement>) => void;
+}
+
+export default class DropFileField extends Field<DropFileFieldProps> {
 
   static jsClass = 'DropFileField';
-  static propTypes = {
-    ...Field.propTypes,
-    onDragOver: PropTypes.func,
-    onDragLeave: PropTypes.func,
-    onDrop: PropTypes.func
-  }
 
   constructor(props) {
     super(props);

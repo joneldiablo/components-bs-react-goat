@@ -1,30 +1,31 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import { eventHandler } from "dbl-utils";
 
 import JsonRender from "../../json-render";
-import Field from "./field";
+import Field, { FieldProps } from "./field";
 import NoWrapField from "./no-wrap-field";
 
 
 //TODO: al cambiar parpadea la validación o.O
 
-export default class NewPasswordField extends Field {
+export interface NewPasswordFieldPattern {
+  pattern: string;
+  errorMessage: string;
+}
+
+export interface NewPasswordFieldProps extends FieldProps {
+  labelRepeat?: string | React.ReactNode;
+  placeholderRepeat?: string;
+  dividerClasses?: string;
+  patterns?: NewPasswordFieldPattern[];
+  mutations?: (data: any) => any;
+}
+
+export default class NewPasswordField extends Field<NewPasswordFieldProps> {
 
   static jsClass = 'NewPasswordField';
-  static propTypes = {
-    ...Field.propTypes,
-    labelRepeat: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    placeholderRepeat: PropTypes.string,
-    dividerClasses: PropTypes.string,
-    patterns: PropTypes.arrayOf(PropTypes.shape({
-      pattern: PropTypes.string,
-      errorMessage: PropTypes.string
-    })),
-    mutations: PropTypes.func
-  }
-  static defaultProps = {
+  static defaultProps: Partial<NewPasswordFieldProps> = {
     ...Field.defaultProps,
     dividerClasses: 'mb-3'
   }

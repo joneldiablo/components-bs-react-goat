@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import React, { createRef } from "react";
 
 import {
@@ -10,13 +9,48 @@ import {
   splitAndFlat
 } from "dbl-utils";
 
-import { ptClasses } from "../prop-types";
 import fields from "../forms/fields";
 import Icons from "@farm-js/react-goat/media/icons";
 import Action from "../actions/action";
 import JsonRender from "../json-render";
-import Component from "../component";
+import Component, { ComponentProps } from "../component";
 import FloatingContainer from '@farm-js/react-goat/containers/floating-container';
+
+export interface HeaderCellProps {
+  col?: any;
+  icons?: any;
+  orderable?: boolean;
+  classes?: string | string[] | Record<string, any>;
+  headerClasses?: string | string[] | Record<string, any>;
+  orderClasses?: string | string[] | Record<string, any>;
+  orderActiveClasses?: string | string[] | Record<string, any>;
+  dropFilters: Record<string, any>;
+  headerRefs: Record<string, any>;
+  tableName?: string;
+  vertical?: boolean;
+}
+
+export interface TableProps extends ComponentProps {
+  colClasses?: string | string[] | Record<string, any>;
+  headerClasses?: string | string[] | Record<string, any>;
+  tableClasses?: string | string[] | Record<string, any>;
+  orderClasses?: string | string[] | Record<string, any>;
+  orderActiveClasses?: string | string[] | Record<string, any>;
+  columns?: any;
+  data?: any;
+  hover?: any;
+  icons?: any;
+  mapCells?: any;
+  mapRows?: any;
+  mutations?: any;
+  onChange?: any;
+  orderable?: any;
+  striped?: any;
+  vertical?: boolean;
+  headerCustom?: any;
+  columnsCustom?: any;
+  footerCustom?: any;
+}
 
 /**
  * @typedef {Object} FormatOptions
@@ -142,33 +176,7 @@ export const addFormatTemplates = (newTemplates = {}) => {
  * @class HeaderCell
  * @extends {React.Component}
  */
-export class HeaderCell extends React.Component {
-
-  static propTypes = {
-    col: PropTypes.any,
-    icons: PropTypes.any,
-    orderable: PropTypes.bool,
-    classes: PropTypes.oneOfType([
-      PropTypes.string, PropTypes.object,
-      PropTypes.arrayOf(PropTypes.string)
-    ]),
-    headerClasses: PropTypes.oneOfType([
-      PropTypes.string, PropTypes.object,
-      PropTypes.arrayOf(PropTypes.string)
-    ]),
-    orderClasses: PropTypes.oneOfType([
-      PropTypes.string, PropTypes.object,
-      PropTypes.arrayOf(PropTypes.string)
-    ]),
-    orderActiveClasses: PropTypes.oneOfType([
-      PropTypes.string, PropTypes.object,
-      PropTypes.arrayOf(PropTypes.string)
-    ]),
-    dropFilters: PropTypes.object.isRequired,
-    headerRefs: PropTypes.object.isRequired,
-    tableName: PropTypes.string,
-    vertical: PropTypes.bool
-  }
+export class HeaderCell extends React.Component<HeaderCellProps> {
 
   static jsClass = 'HeaderColumn';
   static defaultProps = {
@@ -385,34 +393,12 @@ export class HeaderCell extends React.Component {
 * @class Table
 * @extends {Component}
 */
-export default class Table extends Component {
+export default class Table extends Component<TableProps> {
 
   static jsClass = 'Table';
   static slots = ['headerCustom', 'columnsCustom', 'footerCustom'];
 
-  static propTypes = {
-    ...Component.propTypes,
-    colClasses: ptClasses,
-    headerClasses: ptClasses,
-    tableClasses: ptClasses,
-    orderClasses: ptClasses,
-    orderActiveClasses: ptClasses,
-    columns: PropTypes.any,
-    data: PropTypes.any,
-    hover: PropTypes.any,
-    icons: PropTypes.any,
-    mapCells: PropTypes.any,
-    mapRows: PropTypes.any,
-    mutations: PropTypes.any,
-    onChange: PropTypes.any,
-    orderable: PropTypes.any,
-    striped: PropTypes.any,
-    vertical: PropTypes.bool,
-    headerCustom: PropTypes.any,
-    columnsCustom: PropTypes.any,
-    footerCustom: PropTypes.any,
-  }
-  static defaultProps = {
+  static defaultProps: Partial<TableProps> = {
     ...Component.defaultProps,
     data: [],
     striped: true,

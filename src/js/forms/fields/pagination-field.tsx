@@ -1,16 +1,29 @@
 import React from "react";
-import PropTypes from "prop-types";
 
-import Field from "./field";
+import Field, { FieldProps } from "./field";
 
-export default class PaginationField extends Field {
+export interface PaginationFieldTexts {
+  first: string;
+  previus: string;
+  next: string;
+  last: string;
+  pages: string;
+  goto: string;
+}
+
+export interface PaginationFieldProps extends FieldProps {
+  total?: number;
+  firstBtn?: boolean;
+  previusBtn?: boolean;
+  nextBtn?: boolean;
+  lastBtn?: boolean;
+  texts?: PaginationFieldTexts;
+}
+
+export default class PaginationField extends Field<PaginationFieldProps> {
 
   static jsClass = 'PaginationField';
-  static propTypes = {
-    ...Field.propTypes,
-    total: PropTypes.number.isRequired
-  }
-  static defaultProps = {
+  static defaultProps: Partial<PaginationFieldProps> = {
     ...Field.defaultProps,
     total: 1,
     default: 1,
