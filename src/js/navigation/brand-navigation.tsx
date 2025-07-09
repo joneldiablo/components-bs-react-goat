@@ -15,7 +15,7 @@ export interface BrandNavigationProps extends NavigationProps {
   slogan?: React.ReactNode;
 }
 
-export default class BrandNavigation extends Navigation<BrandNavigationProps> {
+export default class BrandNavigation extends Navigation {
   static jsClass = "BrandNavigation";
 
   static defaultProps: Partial<BrandNavigationProps> = {

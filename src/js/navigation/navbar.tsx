@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { randomS4 } from "dbl-utils";
 import { extractNodeString } from "dbl-utils/extract-react-node-text";
 
-import Icons from "../media/icons";
+import Icons from "@farm-js/react-goat/media/icons";
 
 export interface NavbarMenuItem {
   path: string;

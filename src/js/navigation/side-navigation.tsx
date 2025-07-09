@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import Icons from "../media/icons";
+import Icons from "@farm-js/react-goat/media/icons";
 
 export interface SideNavigationItem {
   path: string;
