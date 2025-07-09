@@ -1,6 +1,6 @@
 {
   "name": "@farm-js/components-bs-react-goat",
-  "version": "0.0.0-dev",
+  "version": "0.0.2",
   "description": "How did it get there?",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -17,17 +17,20 @@
   "license": "ISC",
   "dependencies": {
     "@farm-js/react-goat": "^1.0.5",
+    "@floating-ui/react": "^0.27.13",
+    "@splidejs/react-splide": "^0.7.12",
     "bootstrap": "^5.3.3",
-    "dbl-utils": "^1.0.11"
+    "bytes": "^3.1.2",
+    "dbl-utils": "^1.0.11",
+    "lzma": "^2.3.2"
   },
   "devDependencies": {
-    "@types/bootstrap": "^5.2.10",
-    "@types/react-router-dom": "^5.3.3",
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
+    "@types/bootstrap": "^5.2.10",
     "@types/change-case": "^2.3.5",
     "@types/chroma-js": "^2.4.4",
     "@types/cors": "^2.8.17",
@@ -42,6 +45,7 @@
     "@types/prop-types": "^15.7.14",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
+    "@types/react-router-dom": "^5.3.3",
     "@types/uuid": "^10.0.0",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
@@ -89,11 +93,57 @@
       "require": "./dist/cjs/navigation/navigation.js",
       "types": "./dist/types/navigation/navigation.d.ts",
       "source": "./src/js/navigation/navigation.tsx"
+    },
+    "./navigation/brand-navigation": {
+      "import": "./dist/esm/navigation/brand-navigation.js",
+      "require": "./dist/cjs/navigation/brand-navigation.js",
+      "types": "./dist/types/navigation/brand-navigation.d.ts",
+      "source": "./src/js/navigation/brand-navigation.tsx"
+    },
+    "./navigation/navbar": {
+      "import": "./dist/esm/navigation/navbar.js",
+      "require": "./dist/cjs/navigation/navbar.js",
+      "types": "./dist/types/navigation/navbar.d.ts",
+      "source": "./src/js/navigation/navbar.tsx"
+    },
+    "./navigation/side-navigation": {
+      "import": "./dist/esm/navigation/side-navigation.js",
+      "require": "./dist/cjs/navigation/side-navigation.js",
+      "types": "./dist/types/navigation/side-navigation.d.ts",
+      "source": "./src/js/navigation/side-navigation.tsx"
+    },
+    "./forms/form": {
+      "import": "./dist/esm/forms/form.js",
+      "require": "./dist/cjs/forms/form.js",
+      "types": "./dist/types/forms/form.d.ts",
+      "source": "./src/js/forms/form.tsx"
+    },
+    "./forms/fields": {
+      "import": "./dist/esm/forms/fields/index.js",
+      "require": "./dist/cjs/forms/fields/index.js",
+      "types": "./dist/types/forms/fields/index.d.ts",
+      "source": "./src/js/forms/fields/index.ts"
+    },
+    "./forms/groups": {
+      "import": "./dist/esm/forms/groups/index.js",
+      "require": "./dist/cjs/forms/groups/index.js",
+      "types": "./dist/types/forms/groups/index.d.ts",
+      "source": "./src/js/forms/groups/index.ts"
+    },
+    "./containers": {
+      "import": "./dist/esm/containers/index.js",
+      "require": "./dist/cjs/containers/index.js",
+      "types": "./dist/types/containers/index.d.ts",
+      "source": "./src/js/containers/index.ts"
+    },
+    "./tables/table": {
+      "import": "./dist/esm/tables/table.js",
+      "require": "./dist/cjs/tables/table.js",
+      "types": "./dist/types/tables/table.d.ts",
+      "source": "./src/js/tables/table.tsx"
     }
   },
   "directories": {
     "ts": "src",
     "esm": "dist/esm",
-    "cjs": "dist/cjs"
-  }
-}
+    "cjs": "dist/cjs"}

@@ -81,13 +81,12 @@ git push origin "$new_version"
 
 # Publish on npm
 if [ -n "$OTP" ]; then
-  npm publish --otp "$OTP" --access public
+  npm publish --otp "$OTP"
 else
-  npm publish --access public
+  npm publish
 fi
 
 # Switch back to the previous branch
 git checkout -
 
-# Show new version
-echo "$new_version"
+# Show new versionecho "$new_version"

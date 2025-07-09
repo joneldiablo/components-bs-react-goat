@@ -8,6 +8,8 @@ const config: JestConfigWithTsJest = {
       "ts-jest",
       {
         useESM: true,
+        tsconfig: "tsconfig.json",
+        diagnostics: false,
       },
     ],
   },
