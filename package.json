@@ -109,6 +109,36 @@
       "require": "./dist/cjs/navigation/side-navigation.js",
       "types": "./dist/types/navigation/side-navigation.d.ts",
       "source": "./src/js/navigation/side-navigation.tsx"
+    },
+    "./forms/form": {
+      "import": "./dist/esm/forms/form.js",
+      "require": "./dist/cjs/forms/form.js",
+      "types": "./dist/types/forms/form.d.ts",
+      "source": "./src/js/forms/form.tsx"
+    },
+    "./forms/fields": {
+      "import": "./dist/esm/forms/fields/index.js",
+      "require": "./dist/cjs/forms/fields/index.js",
+      "types": "./dist/types/forms/fields/index.d.ts",
+      "source": "./src/js/forms/fields/index.ts"
+    },
+    "./forms/groups": {
+      "import": "./dist/esm/forms/groups/index.js",
+      "require": "./dist/cjs/forms/groups/index.js",
+      "types": "./dist/types/forms/groups/index.d.ts",
+      "source": "./src/js/forms/groups/index.ts"
+    },
+    "./containers": {
+      "import": "./dist/esm/containers/index.js",
+      "require": "./dist/cjs/containers/index.js",
+      "types": "./dist/types/containers/index.d.ts",
+      "source": "./src/js/containers/index.ts"
+    },
+    "./tables/table": {
+      "import": "./dist/esm/tables/table.js",
+      "require": "./dist/cjs/tables/table.js",
+      "types": "./dist/types/tables/table.d.ts",
+      "source": "./src/js/tables/table.tsx"
     }
   },
   "directories": {
