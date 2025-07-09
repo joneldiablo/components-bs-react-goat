@@ -1,45 +1,37 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Offcanvas from "bootstrap/js/dist/offcanvas";
 
 import { eventHandler, resolveRefs } from "dbl-utils";
 
 import JsonRender from "../../json-render";
-import Component from "../../component";
-import { ptClasses } from "../../prop-types";
+import Component, { ComponentProps } from "../../component";
 
 import schema from "./offcanvas.json";
+
+export interface OffcanvasContainerProps extends ComponentProps {
+  bodyClasses?: string | string[] | Record<string, any>;
+  closeClasses?: string | string[] | Record<string, any>;
+  footerClasses?: string | string[] | Record<string, any>;
+  headerClasses?: string | string[] | Record<string, any>;
+  labelClasses?: string | string[] | Record<string, any>;
+  label?: React.ReactNode;
+  labelTag?: string;
+  offcanvas?: Record<string, any>;
+  position?: "start" | "end" | "top" | "bottom";
+  showClose?: boolean;
+}
 
 /**
  * OffcanvasContainer component to manage and display an offcanvas UI element.
  * @extends Component
  */
-export default class OffcanvasContainer extends Component {
+export default class OffcanvasContainer extends Component<OffcanvasContainerProps> {
 
   // Static property to define the class name
   static jsClass = 'OffcanvasContainer';
 
-  static propTypes = {
-    ...Component.propTypes,
-    bodyClasses: ptClasses,
-    closeClasses: ptClasses,
-    footerClasses: ptClasses,
-    headerClasses: ptClasses,
-    labelClasses: ptClasses,
-    label: PropTypes.node,
-    labelTag: PropTypes.string,
-    offcanvas: PropTypes.object,
-    position: PropTypes.oneOf([
-      'start',
-      'end',
-      'top',
-      'bottom'
-    ]),
-    showClose: PropTypes.bool,
-  }
-
   // Default properties for the OffcanvasContainer component
-  static defaultProps = {
+  static defaultProps: Partial<OffcanvasContainerProps> = {
     ...Component.defaultProps,
     bodyClasses: '',
     closeClasses: '',

@@ -1,50 +1,51 @@
 import React, { Fragment, createRef } from "react";
-import PropTypes from "prop-types";
 
 import { randomS4, eventHandler } from "dbl-utils";
 
-import Component from "../../component";
+import Component, { ComponentProps } from "../../component";
 
-export default class Field extends Component {
+export interface FieldOption {
+  disabled?: boolean;
+  divider?: boolean;
+  label?: React.ReactNode | boolean | object | string;
+  value?: any;
+}
+
+export interface FieldProps extends ComponentProps {
+  accept?: string;
+  autoComplete?: string | boolean;
+  checkValidity?: (value: any) => boolean;
+  controlClasses?: string | string[];
+  default?: any;
+  disabled?: boolean;
+  errorMessage?: string | boolean | React.ReactNode;
+  first?: "label" | "control";
+  floating?: boolean;
+  hidden?: boolean;
+  inline?: boolean;
+  inlineControlClasses?: string | string[];
+  label?: string | React.ReactNode;
+  labelClasses?: string | string[];
+  max?: string | number;
+  message?: string | boolean | React.ReactNode;
+  messageClasses?: string | string[];
+  min?: string | number;
+  multiple?: boolean;
+  noValidate?: boolean;
+  pattern?: string;
+  placeholder?: string | React.ReactNode;
+  readOnly?: boolean;
+  required?: boolean;
+  step?: string | number;
+  type: string;
+  value?: any;
+  options?: FieldOption[];
+}
+
+export default class Field extends Component<FieldProps> {
 
   static jsClass = 'Field';
-  static propTypes = {
-    ...Component.propTypes,
-    accept: PropTypes.string,
-    autoComplete: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    checkValidity: PropTypes.func,
-    controlClasses: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-    default: PropTypes.any,
-    disabled: PropTypes.bool,
-    errorMessage: PropTypes.oneOfType([PropTypes.string, PropTypes.bool, PropTypes.node]),
-    first: PropTypes.oneOf(['label', 'control']),
-    floating: PropTypes.bool,
-    hidden: PropTypes.bool,
-    inline: PropTypes.bool,
-    inlineControlClasses: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-    label: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    labelClasses: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-    max: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    message: PropTypes.oneOfType([PropTypes.string, PropTypes.bool, PropTypes.node]),
-    messageClasses: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-    min: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    multiple: PropTypes.bool,
-    noValidate: PropTypes.bool,
-    pattern: PropTypes.string,
-    placeholder: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-    readOnly: PropTypes.bool,
-    required: PropTypes.bool,
-    step: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    type: PropTypes.string.isRequired,
-    value: PropTypes.any,
-    options: PropTypes.arrayOf(PropTypes.shape({
-      disabled: PropTypes.bool,
-      divider: PropTypes.bool,
-      label: PropTypes.oneOfType([PropTypes.string, PropTypes.node, PropTypes.bool, PropTypes.object]),
-      value: PropTypes.any,
-    })),
-  }
-  static defaultProps = {
+  static defaultProps: Partial<FieldProps> = {
     ...Component.defaultProps,
     type: 'text',
     default: '',

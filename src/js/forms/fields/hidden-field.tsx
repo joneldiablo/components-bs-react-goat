@@ -1,12 +1,10 @@
 import React from "react";
 
-import Field from "./field";
+import Field, { FieldProps } from "./field";
 
-export default class HiddenField extends Field {
+export interface HiddenFieldProps extends FieldProps {}
 
-  static propTypes = {
-    ...Field.propTypes
-  }
+export default class HiddenField extends Field<HiddenFieldProps> {
 
   static jsClass = 'HiddenField';
 

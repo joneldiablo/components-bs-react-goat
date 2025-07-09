@@ -1,22 +1,21 @@
 import React, { createRef } from "react";
-import PropTypes from 'prop-types';
 
 import { randomS4, eventHandler } from "dbl-utils";
 
-import Component from "../component";
+import Component, { ComponentProps } from "../component";
 import fieldComponents from "./fields";
 
-export default class Form extends Component {
+export interface FormProps extends ComponentProps {
+  label?: string;
+  labelClasses?: string;
+  fieldClasses?: string;
+  fields?: any[];
+}
+
+export default class Form extends Component<FormProps> {
 
   static jsClass = 'Form';
-  static propTypes = {
-    ...Component.propTypes,
-    label: PropTypes.string,
-    labelClasses: PropTypes.string,
-    fieldClasses: PropTypes.string,
-    fields: PropTypes.array
-  }
-  static defaultProps = {
+  static defaultProps: Partial<FormProps> = {
     ...Component.defaultProps,
     fieldClasses: 'mb-3',
     fields: []

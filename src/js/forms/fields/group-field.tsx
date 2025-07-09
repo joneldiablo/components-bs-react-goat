@@ -1,15 +1,15 @@
 import React from "react";
 
-import Field from "./field";
+import Field, { FieldProps } from "./field";
 
-export default class GroupField extends Field {
+export interface GroupFieldProps extends FieldProps {
+  groupClasses?: string;
+}
+
+export default class GroupField extends Field<GroupFieldProps> {
 
   static jsClass = 'GroupField';
-  static propTypes = {
-    ...Field.propTypes
-  }
-
-  static defaultProps = {
+  static defaultProps: Partial<GroupFieldProps> = {
     ...Field.defaultProps
   }
 

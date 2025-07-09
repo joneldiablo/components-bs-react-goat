@@ -1,12 +1,10 @@
 import React from "react";
 
-import Field from "./field";
+import Field, { FieldProps } from "./field";
 
-export default class NoWrapField extends Field {
+export interface NoWrapFieldProps extends FieldProps {}
 
-  static propTypes = {
-    ...Field.propTypes
-  }
+export default class NoWrapField extends Field<NoWrapFieldProps> {
 
   static jsClass = 'NoWrapField';
 
@@ -14,5 +12,4 @@ export default class NoWrapField extends Field {
 
   render() {
     return this.content();
-  }
-};
+  }};
