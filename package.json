@@ -15,13 +15,13 @@
   },
   "author": "joneldiablo",
   "license": "ISC",
-  "dependencies": {
+  "peerDependencies": {
     "@farm-js/react-goat": "^1.0.5",
     "@floating-ui/react": "^0.27.13",
     "@splidejs/react-splide": "^0.7.12",
     "bootstrap": "^5.3.3",
     "bytes": "^3.1.2",
-    "dbl-utils": "^1.0.11",
+    "dbl-utils": "^1.0.12",
     "lzma": "^2.3.2"
   },
   "devDependencies": {
