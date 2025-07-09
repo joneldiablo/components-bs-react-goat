@@ -1,3 +1,4 @@
+import React from "react";
 import Field from "./field";
 
 export default class JsonEditorField extends Field {
