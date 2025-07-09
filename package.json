@@ -89,11 +89,28 @@
       "require": "./dist/cjs/navigation/navigation.js",
       "types": "./dist/types/navigation/navigation.d.ts",
       "source": "./src/js/navigation/navigation.tsx"
+    },
+    "./navigation/brand-navigation": {
+      "import": "./dist/esm/navigation/brand-navigation.js",
+      "require": "./dist/cjs/navigation/brand-navigation.js",
+      "types": "./dist/types/navigation/brand-navigation.d.ts",
+      "source": "./src/js/navigation/brand-navigation.tsx"
+    },
+    "./navigation/navbar": {
+      "import": "./dist/esm/navigation/navbar.js",
+      "require": "./dist/cjs/navigation/navbar.js",
+      "types": "./dist/types/navigation/navbar.d.ts",
+      "source": "./src/js/navigation/navbar.tsx"
+    },
+    "./navigation/side-navigation": {
+      "import": "./dist/esm/navigation/side-navigation.js",
+      "require": "./dist/cjs/navigation/side-navigation.js",
+      "types": "./dist/types/navigation/side-navigation.d.ts",
+      "source": "./src/js/navigation/side-navigation.tsx"
     }
   },
   "directories": {
     "ts": "src",
     "esm": "dist/esm",
     "cjs": "dist/cjs"
-  }
-}
+  }}
