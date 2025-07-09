@@ -495,25 +495,77 @@ export default class Navigation extends Component<NavigationProps, NavigationSta
     return React.createElement(
       itemTag,
       itemProps,
-      <div style={styleWrapCaret as any}>
-        {item.path || item.to ? <NavLink {...propsLink as any}>{innerNode}</NavLink> : <Component {...propsLink as any}>{innerNode}</Component>}
-        {!!item.menu?.length && open && (
-          <span
-            className={splitAndFlat(
-              [
-                "position-absolute top-50 end-0 translate-middle-y caret-icon p-1 cursor-pointer",
-                this.activeElements[item.name] || item.hasAnActive
-                  ? item.activeCaretClasses || activeCaretClasses
-                  : item.caretClasses || caretClasses,
-              ],
-              " "
-            ).join(" ")}
-            onClick={(e) => !disabled && this.onToggleSubmenu(e, item)}
-          >
-            <Icons icon={carets[item.name]} {...iconStyle} inline={false} className="rounded-circle" />
-          </span>
-        )}
-      </div>
+      <>
+        <div style={styleWrapCaret as any}>
+          {item.path || item.to ? (
+            <NavLink {...(propsLink as any)}>{innerNode}</NavLink>
+          ) : (
+            <Component {...(propsLink as any)}>{innerNode}</Component>
+          )}
+          {!!item.menu?.length && open && (
+            <span
+              className={splitAndFlat(
+                [
+                  "position-absolute top-50 end-0 translate-middle-y caret-icon p-1 cursor-pointer",
+                  this.activeElements[item.name] || item.hasAnActive
+                    ? item.activeCaretClasses || activeCaretClasses
+                    : item.caretClasses || caretClasses,
+                ],
+                " "
+              ).join(" ")}
+              onClick={(e) => !disabled && this.onToggleSubmenu(e, item)}
+            >
+              <Icons icon={carets[item.name]} {...iconStyle} inline={false} className="rounded-circle" />
+            </span>
+          )}
+          {!!item.menu?.length && !open && (
+            <span
+              className={splitAndFlat(
+                [
+                  "position-absolute top-50 end-0 translate-middle-y caret-icon p-1 cursor-pointer",
+                  this.activeElements[item.name] || item.hasAnActive
+                    ? item.activeCaretClasses || activeCaretClasses
+                    : item.caretClasses || caretClasses,
+                ],
+                " "
+              ).join(" ")}
+              onClick={(e) => !disabled && this.onToggleFloating(e, item)}
+            >
+              <Icons
+                icon="angle-right"
+                {...iconStyle}
+                inline={false}
+                style={{ width: "1.8rem", padding: ".5rem", transform: "scale(.8)" }}
+                className="rounded-circle"
+              />
+            </span>
+          )}
+        </div>
+        {!!item.menu?.length &&
+          (open ? (
+            <div
+              ref={(ref) => this.collapseRef(ref, item)}
+              id={`${item.name}-collapse`}
+              className="collapse"
+            >
+              {this.state.carets[item.name] === (this.props.caretIcons?.[0] ?? "angle-up") &&
+                (item.menu as NavigationItem[]).map((m, i) => this.link(m, i, item)).filter(Boolean)}
+            </div>
+          ) : (
+            this.itemsRefs.current?.[item.name] && (
+              <FloatingContainer
+                name={`${item.name}Floating`}
+                floatAround={this.itemsRefs.current[item.name]}
+                placement="right"
+                card={false}
+                allowedPlacements={["right", "bottom", "top"]}
+                classes={splitAndFlat([item.floatingClasses || floatingClasses], " ").join(" ")}
+              >
+                {(item.menu as NavigationItem[]).map((m, i) => this.link(m, i, item)).filter(Boolean)}
+              </FloatingContainer>
+            )
+          ))}
+      </>
     );
   }
 
@@ -525,7 +577,7 @@ export default class Navigation extends Component<NavigationProps, NavigationSta
   protected content(children: React.ReactNode = this.props.children): React.ReactNode {
     return (
       <>
-        {this.props.menu?.map((m, i) => this.link(m, i)).filter(Boolean)}
+        {(this.props.menu as NavigationItem[] | undefined)?.map((m, i) => this.link(m, i)).filter(Boolean)}
         {children}
       </>
     );

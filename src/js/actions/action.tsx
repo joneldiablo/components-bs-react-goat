@@ -5,18 +5,22 @@ import Goat from "@farm-js/react-goat/goat";
 
 
 interface ActionComponentProps extends ComponentProps {
+  classButton?: boolean;
   close?: string | boolean;
   disabled?: boolean;
   form?: string;
+  hash?: string;
   icon?: string | boolean;
   iconClasses?: string;
   iconProps?: Record<string, any>;
   id?: string | number;
   open?: string | boolean;
+  search?: string;
   status?: string | boolean;
   statusClasses?: Record<string, string>;
   statusIcons?: Record<string, string>;
-  to?: string;
+  navOptions?: Record<string, any>;
+  to?: string | number;
   type?: string;
   value?: any;
   justifyContent?: "start" | "center" | "end";
@@ -79,9 +83,8 @@ export default class ActionComponent extends Component<ActionComponentProps> {
     this.classes += " justify-content-" + props.justifyContent;
     this.onClick = this.onClick.bind(this);
     Object.assign(this.state, {
-      localClasses: props.classButton ? 'btn' : '',
+      localClasses: props.classButton ? "btn" : "",
     });
-    console.log(this.state, props.classButton);
     this.eventHandlers.onClick = this.onClick;
     this.schema = resolveRefs(ActionComponent.schemaContent, { props });
     this.goat = new Goat({ ...props }, this.mutations.bind(this));
@@ -89,10 +92,28 @@ export default class ActionComponent extends Component<ActionComponentProps> {
 
   protected onClick(e: any) {
     e.stopPropagation();
-    const { navigate, to, type, open, close, value, name, id } = this.props;
+    const {
+      navigate,
+      to,
+      search,
+      hash,
+      navOptions = {},
+      type,
+      open,
+      close,
+      value,
+      name,
+      id,
+    } = this.props;
 
     if (type === "link" && to) {
-      navigate(to);
+      if (typeof to === "number") navigate(to);
+      else {
+        navigate(
+          { pathname: to, search, hash },
+          { ...navOptions, state: { name, id, value } }
+        );
+      }
     }
 
     if (open) {
