@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import Field from '../forms/fields/field';
+import Field from '../fields/field';
 
 const FieldComp = Field as unknown as React.ComponentType<any>;
 

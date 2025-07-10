@@ -14,7 +14,7 @@ import FloatingContainer, {
   FloatingContainerProps,
 } from "@farm-js/react-goat/containers/floating-container";
 
-import fields from "../forms/fields";
+import fields from "../fields";
 import Action from "../actions/action";
 import Component, { ComponentProps } from "../component";
 

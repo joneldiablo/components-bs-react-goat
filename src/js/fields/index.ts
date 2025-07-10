@@ -16,7 +16,6 @@ import RangeField from "./range-field";
 import SelectField from "./select-field";
 import SwitchField from "./switch-field";
 import TextareaField from "./textarea-field";
-import groups from "../groups";
 
 const fieldComponents = {
   AutocompleteField,
@@ -40,7 +39,6 @@ const fieldComponents = {
   SelectField,
   SwitchField,
   TextareaField,
-  ...groups,
 };
 
 export const addFields = (_components: Record<string, any>) => {

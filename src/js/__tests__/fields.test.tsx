@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import fields from '../forms/fields';
+import fields from '../fields';
 
 const { Field, NewPasswordField, ...rest } = fields as Record<string, React.ComponentType<any>>;
 

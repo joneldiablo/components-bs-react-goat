@@ -3,7 +3,7 @@ import React, { Fragment, FragmentProps, createRef } from "react";
 import { randomS4, eventHandler } from "dbl-utils";
 import { extractNodeString } from "dbl-utils/extract-react-node-text";
 
-import Component, { ComponentProps, ComponentState } from "../../component";
+import Component, { ComponentProps, ComponentState } from "../component";
 
 export interface FieldOption {
   disabled?: boolean;
