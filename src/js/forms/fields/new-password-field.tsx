@@ -2,10 +2,9 @@ import React from "react";
 
 import { eventHandler } from "dbl-utils";
 
-import JsonRender from "../../json-render";
-import Field, { FieldProps } from "./field";
+import { Goat } from "@farm-js/react-goat";
+import Field, { FieldProps, FieldState } from "./field";
 import NoWrapField from "./no-wrap-field";
-
 
 //TODO: al cambiar parpadea la validación o.O
 
@@ -22,27 +21,39 @@ export interface NewPasswordFieldProps extends FieldProps {
   mutations?: (data: any) => any;
 }
 
-export default class NewPasswordField extends Field<NewPasswordFieldProps> {
+export interface NewPasswordFieldState extends FieldState {
+  valueRepeat?: any;
+}
 
-  static jsClass = 'NewPasswordField';
+export default class NewPasswordField extends Field<
+  NewPasswordFieldProps,
+  NewPasswordFieldState
+> {
+  static jsClass = "NewPasswordField";
   static defaultProps: Partial<NewPasswordFieldProps> = {
     ...Field.defaultProps,
-    dividerClasses: 'mb-3'
-  }
+    dividerClasses: "mb-3",
+  };
 
-  constructor(props) {
+  goat;
+
+  constructor(props: NewPasswordFieldProps) {
     super(props);
     const { mutations, ...jProps } = props;
-    this.jsonRender = new JsonRender(jProps, mutations);
+    this.goat = new Goat(jProps, mutations);
   }
 
   get type() {
-    return 'password';
+    return "password";
   }
 
   componentDidMount() {
     super.componentDidMount();
-    eventHandler.subscribe(`${this.props.name}-repeat`, this.onUpdateRepeat, this.unique);
+    eventHandler.subscribe(
+      `${this.props.name}-repeat`,
+      this.onUpdateRepeat,
+      this.unique
+    );
   }
 
   componentWillUnmount() {
@@ -50,20 +61,28 @@ export default class NewPasswordField extends Field<NewPasswordFieldProps> {
     eventHandler.unsubscribe(`${this.props.name}-repeat`, this.unique);
   }
 
-  returnData(value = this.state.value, valueRepeat = this.state.valueRepeat) {
+  returnData(
+    value = this.state.value,
+    valueRepeat = (this.state as NewPasswordFieldState).valueRepeat
+  ) {
     if (value === valueRepeat) super.returnData(value);
   }
 
-  onUpdateRepeat = (data) => {
+  onUpdateRepeat = (data: any) => {
     this.setState(
-      { valueRepeat: data[this.props.name + '-repeat'] },
+      {
+        valueRepeat: data[this.props.name + "-repeat"],
+      } as any,
       () => !this.isInvalid() && this.returnData()
     );
-  }
+  };
 
-  isInvalid(value = this.state.value, valueRepeat = this.state.valueRepeat) {
+  isInvalid(
+    value = this.state.value,
+    valueRepeat = (this.state as NewPasswordFieldState).valueRepeat
+  ) {
     const error = super.isInvalid(value);
-    const diff = (value !== valueRepeat);
+    const diff = value !== valueRepeat;
     eventHandler.dispatch(`update.${this.props.name}-repeat`, { error: diff });
     return error;
   }
@@ -71,52 +90,77 @@ export default class NewPasswordField extends Field<NewPasswordFieldProps> {
   get errorMessageNode() {
     const { errorMessage: em, patterns } = this.props;
     const { error, value } = this.state;
-    if (!error && !errorMessage || !patterns) return false;
-    const errorMessage = !patterns ? [em] : [
-      em, React.createElement('ul', {},
-        ...Object.entries(patterns)
-          .map(([k, { pattern, errorMessage }]) => !value.match(pattern)
-            && <li>{this.jsonRender.buildContent(errorMessage)}</li>)
-          .filter(p => !!p))
-    ];
-    const errorNode = React.createElement('div', { className: "m-1 lh-1" },
-      React.createElement('small', { className: "text-danger" },
+    if ((!error && !em) || !patterns) return false;
+    const errorMessage = !patterns
+      ? [em]
+      : [
+          em,
+          React.createElement(
+            "ul",
+            {},
+            ...Object.entries(patterns)
+              .map(
+                ([k, { pattern, errorMessage }]: any) =>
+                  !value.match(pattern) && (
+                    <li>{this.goat.buildContent(errorMessage)}</li>
+                  )
+              )
+              .filter((p) => !!p)
+          ),
+        ];
+    const errorNode = React.createElement(
+      "div",
+      { className: "m-1 lh-1" },
+      React.createElement(
+        "small",
+        { className: "text-danger" },
         ...errorMessage
       )
     );
     return errorNode;
   }
 
-  content(children = this.props.children) {
-    const { labelRepeat, placeholderRepeat, name,
-      errorMessageRepeat, dividerClasses, inlineFields } = this.props;
+  content(children = this.props.children): any {
+    const {
+      labelRepeat,
+      placeholderRepeat,
+      name,
+      errorMessageRepeat,
+      dividerClasses,
+      inlineFields,
+    } = this.props;
     const cloneFieldProps = {
       ...this.props,
-      name: name + '-repeat',
+      name: name + "-repeat",
       type: this.type,
       label: labelRepeat,
       placeholder: placeholderRepeat,
       errorMessage: errorMessageRepeat,
-      required: true
+      required: true,
     };
     return inlineFields
-      ? React.createElement('div', { className: "row" },
-        React.createElement('div', { className: "col" },
-          super.content(false)
-        ),
-        React.createElement('div', { className: "col" },
-          React.createElement(NoWrapField, { ...cloneFieldProps })
-        ),
-        React.createElement('div', { className: "col-12" },
-          children
+      ? React.createElement(
+          "div",
+          { className: "row" },
+          React.createElement(
+            "div",
+            { className: "col" },
+            super.content(false)
+          ),
+          React.createElement(
+            "div",
+            { className: "col" },
+            React.createElement(NoWrapField, { ...cloneFieldProps })
+          ),
+          React.createElement("div", { className: "col-12" }, children)
         )
-      )
-      : React.createElement(React.Fragment, {},
-        super.content(false),
-        React.createElement('div', { className: dividerClasses }),
-        React.createElement(NoWrapField, { ...cloneFieldProps }),
-        children
-      );
+      : React.createElement(
+          React.Fragment,
+          {},
+          super.content(false),
+          React.createElement("div", { className: dividerClasses }),
+          React.createElement(NoWrapField, { ...cloneFieldProps }),
+          children
+        );
   }
-
-};
+}

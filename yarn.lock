@@ -926,13 +926,12 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@farm-js/react-goat@1.0.5":
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/@farm-js/react-goat/-/react-goat-1.0.5.tgz#6c04a492fa6fe6c72b4e25bdd104bb714428da7a"
-  integrity sha512-g2u9TtKYsWm8hJDaXjO3DOnj5esLuTFxLVBU6igLD1PD9SLchHtwcjk57mDtx5f0ktJJfPwfx9p27C90e7jobA==
+"@farm-js/react-goat@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@farm-js/react-goat/-/react-goat-1.0.8.tgz#25346cadf4d1e7694e89668dee7e88fcbabc45f6"
+  integrity sha512-zhK41qyW8xorzzxFyFpNXwrPUyhi5aC9WOYtmToRCHF55R1Csr23qgxIJsG9eMRpo0xoRtr63NuzY/oeNVE0ig==
   dependencies:
     css-element-queries "^1.2.3"
-    dbl-utils "^1.0.11"
     html-react-parser "^5.2.2"
     prop-types "^15.8.1"
     react "^19.0.0"
@@ -1393,6 +1392,11 @@
   dependencies:
     "@popperjs/core" "^2.9.2"
 
+"@types/bytes@^3.1.5":
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/@types/bytes/-/bytes-3.1.5.tgz#22fb92839f37bd5490e0dcd411999bb1c16ddaa0"
+  integrity sha512-VgZkrJckypj85YxEsEavcMmmSOIzkUHqWmM4CCyia5dc54YwsXzJ5uT4fYxBQNEXx+oF1krlhgCbvfubXqZYsQ==
+
 "@types/change-case@^2.3.5":
   version "2.3.5"
   resolved "https://registry.yarnpkg.com/@types/change-case/-/change-case-2.3.5.tgz#7c86cefd5897738980fc3bcbe466b03b38026dbd"
@@ -1514,6 +1518,13 @@
   version "4.17.20"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.17.20.tgz#1ca77361d7363432d29f5e55950d9ec1e1c6ea93"
   integrity sha512-H3MHACvFUEiujabxhaI/ImO6gUrd8oOurg7LQtS7mbwIXA/cUqWrvBsaeJ23aZEPk1TAYkurjfMbSELfoCXlGA==
+
+"@types/lzma@^2.3.0":
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/@types/lzma/-/lzma-2.3.0.tgz#d540d348346e460cb26cfd5e48537b94f732e7a4"
+  integrity sha512-z7TknP6ts5GPnN7P2bkZC1B/tMpoMJXG3UnPY1XDrwBq1OJQ2EpHtEypFwq5Q0A5iS37+oc+MT/o/B7x5lgl8Q==
+  dependencies:
+    "@types/node" "*"
 
 "@types/mdast@^4.0.0":
   version "4.0.4"
@@ -2157,7 +2168,7 @@ data-urls@^3.0.2:
     whatwg-mimetype "^3.0.0"
     whatwg-url "^11.0.0"
 
-dbl-utils@^1.0.11, dbl-utils@^1.0.12:
+dbl-utils@^1.0.12:
   version "1.0.12"
   resolved "https://registry.yarnpkg.com/dbl-utils/-/dbl-utils-1.0.12.tgz#941783dc87ebe3e2777aab1803680a1deed23052"
   integrity sha512-L1JxZbDbQtuGrNU3Bt0pbkJIsI/eIvcwEAh8Ige2l23AhFXfBsiWJz7auQ06QYxF2r4Go63zsH5iRuCQFd+JYg==
@@ -2296,9 +2307,9 @@ ejs@^3.1.10:
     jake "^10.8.5"
 
 electron-to-chromium@^1.5.173:
-  version "1.5.180"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.180.tgz#3e4f6e7494d6371e014af176dfdfd43c8a4b56df"
-  integrity sha512-ED+GEyEh3kYMwt2faNmgMB0b8O5qtATGgR4RmRsIp4T6p7B8vdMbIedYndnvZfsaXvSzegtpfqRMDNCjjiSduA==
+  version "1.5.181"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.5.181.tgz#2f68dc900651858200a423acdf12c644f6b7f014"
+  integrity sha512-+ISMj8OIQ+0qEeDj14Rt8WwcTOiqHyAB+5bnK1K7xNNLjBJ4hRCQfUkw8RWtcLbfBzDwc15ZnKH0c7SNOfwiyA==
 
 emittery@^0.13.1:
   version "0.13.1"

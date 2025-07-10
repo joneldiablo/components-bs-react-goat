@@ -1,89 +1,111 @@
 import React from "react";
 
-import JsonRender from "../../json-render";
-import Field from "./field";
+import { Goat } from "@farm-js/react-goat";
 
-export default class RadioField extends Field {
+import Field, { FieldProps, FieldState } from "./field";
 
-  static jsClass = 'RadioField';
+export interface RadioFieldProps extends FieldProps {}
+export interface RadioFieldState extends FieldState {}
+
+export default class RadioField extends Field<
+  RadioFieldProps,
+  RadioFieldState
+> {
+  static jsClass = "RadioField";
   static defaultProps = {
     ...Field.defaultProps,
     inline: false,
     labelInline: true,
-  }
+  };
 
-  constructor(props) {
+  goat;
+
+  constructor(props: RadioFieldProps) {
     super(props);
     const { mutations, ...propsRender } = props;
-    this.jsonRender = new JsonRender(propsRender, mutations);
+    this.goat = new Goat(propsRender, mutations);
   }
-
 
   get type() {
-    return 'radio';
+    return "radio";
   }
 
-  onChange(e) {
+  onChange(e: React.ChangeEvent<HTMLInputElement>) {
     const { value, dataset } = e.target;
     let setValue;
     switch (dataset.type) {
-      case 'number':
+      case "number":
         setValue = parseFloat(value);
         break;
-      case 'boolean':
-        setValue = value === 'true';
+      case "boolean":
+        setValue = value === "true";
         break;
       default:
         setValue = value;
         break;
     }
-    this.setState({
-      value: setValue,
-      error: this.isInvalid(setValue)
-    }, () => this.returnData());
+    this.setState(
+      {
+        value: setValue,
+        error: this.isInvalid(setValue),
+      },
+      () => this.returnData()
+    );
   }
 
   get inputProps() {
     const props = super.inputProps;
     delete props.ref;
     delete props.className;
-    let className = 'form-check-input';
-    if (this.props.format === 'button') className = 'btn-check';
+    let className = "form-check-input";
+    if (this.props.format === "button") className = "btn-check";
     return {
       ...props,
-      className
-    }
+      className,
+    };
   }
 
-  nodeOption = (itemRaw, i) => {
+  nodeOption = (itemRaw: any, i: number) => {
     if (!itemRaw) return false;
 
-    const { inline, name, labels: las, optionClasses, format, labelClasses } = this.props;
+    const {
+      inline,
+      name,
+      labels: las,
+      optionClasses,
+      format,
+      labelClasses,
+    } = this.props;
     let { first } = this.props;
     const { value } = this.state;
-    const modify = typeof this.props.mutations === 'function'
-      && this.props.mutations(`${name}.${itemRaw.value}`, itemRaw);
+    const modify =
+      typeof this.props.mutations === "function" &&
+      this.props.mutations(`${name}.${itemRaw.value}`, itemRaw);
     const item = Object.assign({}, itemRaw, modify || {});
     if (item.active === false) return false;
 
-    const id = name + '-' + item.value;
+    const id = name + "-" + item.value;
     const labels = item.labels || las;
-    const checked = (['boolean', 'number'].includes(typeof value)
+    const checked = ["boolean", "number"].includes(typeof value)
       ? item.value === value
-      : value.includes(item.value));
-    const disabled = typeof item.disabled !== 'undefined'
-      ? item.disabled : this.inputProps.disabled;
-    const readOnly = typeof item.readOnly !== 'undefined'
-      ? item.readOnly : this.inputProps.readOnly;
+      : value.includes(item.value);
+    const disabled =
+      typeof item.disabled !== "undefined"
+        ? item.disabled
+        : this.inputProps.disabled;
+    const readOnly =
+      typeof item.readOnly !== "undefined"
+        ? item.readOnly
+        : this.inputProps.readOnly;
 
     const cn = [optionClasses, item.classes];
-    if (inline) cn.push('form-check-inline');
-    if (item.hidden && !checked) cn.push('visually-hidden-focusable');
-    if (format === 'switch') cn.unshift('form-switch');
-    else if (format === 'button') {
-      cn.unshift('');
-      first = 'control';
-    } else cn.unshift('form-check');
+    if (inline) cn.push("form-check-inline");
+    if (item.hidden && !checked) cn.push("visually-hidden-focusable");
+    if (format === "switch") cn.unshift("form-switch");
+    else if (format === "button") {
+      cn.unshift("");
+      first = "control";
+    } else cn.unshift("form-check");
 
     const inputProps = {
       ...this.inputProps,
@@ -92,56 +114,70 @@ export default class RadioField extends Field {
       id,
       value: item.value === null ? "" : item.value,
       checked,
-      'data-type': typeof item.value,
+      "data-type": typeof item.value,
       style: {
-        pointerEvents: readOnly ? 'none' : null,
-        backgroundColor: readOnly ? 'transparent' : null
-      }
-    }
-    const style = {};
-    if (disabled) style['opacity'] = .5;
-    const lc = [
-      format === 'button' ? 'btn' : "form-check-label",
-      labelClasses,
-      item.labelClasses
-    ];
-    const label = (labelIn) => React.createElement('label',
-      { className: lc.flat().join(' '), htmlFor: id, style },
-      labelIn
-    );
-    const theInput = Array.isArray(labels)
-      ? React.createElement(React.Fragment, {},
-        label(this.jsonRender.buildContent(labels[0])),
-        React.createElement('input', { ...inputProps }),
-        label(this.jsonRender.buildContent(labels[1]))
-      )
-      : React.createElement('input', { ...inputProps });
-
-    return React.createElement('div',
-      {
-        key: i + '-' + item.value,
-        className: cn.filter(c => !!c).flat().join(' '),
-        style: { pointerEvents: readOnly ? 'none' : null }
+        pointerEvents: readOnly ? "none" : null,
+        backgroundColor: readOnly ? "transparent" : null,
       },
-      first === 'label' && label(this.jsonRender.buildContent(item.label)),
+    };
+    const style: React.CSSProperties = {};
+    if (disabled) style["opacity"] = 0.5;
+    const lc = [
+      format === "button" ? "btn" : "form-check-label",
+      labelClasses,
+      item.labelClasses,
+    ];
+    const label = (labelIn: any) =>
+      React.createElement(
+        "label",
+        { className: lc.flat().join(" "), htmlFor: id, style },
+        labelIn
+      );
+    const theInput = Array.isArray(labels)
+      ? React.createElement(
+          React.Fragment,
+          {},
+          label(this.goat.buildContent(labels[0])),
+          React.createElement("input", { ...inputProps }),
+          label(this.goat.buildContent(labels[1]))
+        )
+      : React.createElement("input", { ...inputProps });
+
+    return React.createElement(
+      "div",
+      {
+        key: i + "-" + item.value,
+        className: cn
+          .filter((c) => !!c)
+          .flat()
+          .join(" "),
+        style: { pointerEvents: readOnly ? "none" : null },
+      },
+      first === "label" && label(this.goat.buildContent(item.label)),
       theInput,
-      first === 'control' && label(this.jsonRender.buildContent(item.label))
-    )
-  }
+      first === "control" && label(this.goat.buildContent(item.label))
+    );
+  };
 
   content(children = this.props.children) {
     let { options, label, labelInline } = this.props;
     const hasOptions = Array.isArray(options);
-    return React.createElement(React.Fragment, {},
+    return React.createElement(
+      React.Fragment,
+      {},
       !!label && hasOptions && this.labelNode,
-      !!label && hasOptions && !labelInline && React.createElement('br'),
-      options.map(this.nodeOption).filter(o => !!o),
-      React.createElement(React.Fragment, {},
+      !!label && hasOptions && !labelInline && React.createElement("br"),
+      [options]
+        .flat()
+        .map(this.nodeOption)
+        .filter((o) => !!o),
+      React.createElement(
+        React.Fragment,
+        {},
         this.errorMessageNode,
-        this.messageNode,
+        this.messageNode
       ),
       children
     );
   }
-
 }
