@@ -7,12 +7,12 @@ import Field, { FieldProps, FieldState } from "./field";
 export interface RadioFieldProps extends FieldProps {}
 export interface RadioFieldState extends FieldState {}
 
-export default class RadioField extends Field<
-  RadioFieldProps,
-  RadioFieldState
-> {
+export default class RadioField<
+  TProps extends RadioFieldProps = RadioFieldProps,
+  TState extends RadioFieldState = RadioFieldState
+> extends Field<RadioFieldProps, RadioFieldState> {
   static jsClass = "RadioField";
-  static defaultProps = {
+  static defaultProps: Partial<RadioFieldProps> = {
     ...Field.defaultProps,
     inline: false,
     labelInline: true,
@@ -20,8 +20,9 @@ export default class RadioField extends Field<
 
   goat;
 
-  constructor(props: RadioFieldProps) {
+  constructor(props: TProps) {
     super(props);
+    this.state = this.state as TState;
     const { mutations, ...propsRender } = props;
     this.goat = new Goat(propsRender, mutations);
   }

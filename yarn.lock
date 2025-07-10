@@ -926,12 +926,13 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@farm-js/react-goat@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@farm-js/react-goat/-/react-goat-1.0.8.tgz#25346cadf4d1e7694e89668dee7e88fcbabc45f6"
-  integrity sha512-zhK41qyW8xorzzxFyFpNXwrPUyhi5aC9WOYtmToRCHF55R1Csr23qgxIJsG9eMRpo0xoRtr63NuzY/oeNVE0ig==
+"@farm-js/react-goat@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@farm-js/react-goat/-/react-goat-1.0.11.tgz#3dba8b5b4d8d327e24bcddc9d4fe1d053c516974"
+  integrity sha512-03Wglja+mXRoiB2iYY8+piK25cWfA2YaZ6wSU31WS1HhYyI5qFemF7NK/Cph0d9Hyazh1FS3gXD+Z8nvfWxwig==
   dependencies:
     css-element-queries "^1.2.3"
+    dbl-utils "^1.0.12"
     html-react-parser "^5.2.2"
     prop-types "^15.8.1"
     react "^19.0.0"

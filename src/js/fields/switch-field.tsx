@@ -1,12 +1,19 @@
-import CheckboxField from "./checkbox-field";
+import CheckboxField, {
+  CheckboxFieldProps,
+  CheckboxFieldState,
+} from "./checkbox-field";
 
-export default class SwitchField extends CheckboxField {
+export interface SwitchFieldProps extends CheckboxFieldProps {}
+export interface SwitchFieldState extends CheckboxFieldState {}
 
-  static jsClass = 'SwitchField';
+export default class SwitchField extends CheckboxField<
+  SwitchFieldProps,
+  SwitchFieldState
+> {
+  static jsClass = "SwitchField";
 
-  static defaultProps = {
+  static defaultProps: Partial<SwitchFieldProps> = {
     ...CheckboxField.defaultProps,
-    format: 'switch'
-  }
-
+    format: "switch",
+  };
 }

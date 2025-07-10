@@ -57,7 +57,7 @@ export default class RangeField extends Field<
   RangeFieldstate
 > {
   static jsClass = "RangeField";
-  static defaultProps = {
+  static defaultProps: Partial<RangeFieldProps> = {
     ...Field.defaultProps,
     type: "number",
     default: [],

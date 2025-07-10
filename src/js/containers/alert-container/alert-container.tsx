@@ -1,93 +1,103 @@
 import React from "react";
 
-import Component, { nameSuffixes } from "../../complex-component";
+import Component, {
+  nameSuffixes,
+  ComplexComponentProps,
+  ComplexComponentState,
+} from "@farm-js/react-goat/complex-component";
 
 import schema from "./alert-schema.json";
 
-/*
-classes: py-2 notification 
-toggle: alert-dismissible alert-success text-success
-.label-icon { margin-bottom: 1px; }
-    
-*/
+export interface AlertContainerProps extends ComplexComponentProps {
+  classes: any;
+}
+export interface AlertContainerState extends ComplexComponentState {}
 
-export default class AlertContainer extends Component {
-
-  static jsClass = 'AlertContainer';
+export default class AlertContainer extends Component<
+  AlertContainerProps,
+  AlertContainerState
+> {
+  static jsClass = "AlertContainer";
   static defaultProps = {
     ...Component.defaultProps,
     schema,
     iconSize: 20,
-    color: 'primary',
+    color: "primary",
     showClose: true,
     definitions: {},
     classes: {
-      '.': '',
-      label: 'mb-0',
-      icon: '',
-      description: '',
-      close: ''
+      ".": "",
+      label: "mb-0",
+      icon: "",
+      description: "",
+      close: "",
     },
     rules: {
-      ...nameSuffixes(["Label", "Description", "Close"])
-    }
-  }
+      ...nameSuffixes(["Label", "Description", "Close"]),
+    },
+  };
   static dontBuildContent = true;
   static wrapper = false;
-  classes = 'alert fade show shadow-sm';
+  classes = "alert fade show shadow-sm";
+  setOfClasses;
 
-  constructor(props) {
+  constructor(props: AlertContainerProps) {
     super(props);
-    this.setClasses = new Set();
+    this.setOfClasses = new Set<String>();
     Object.assign(this.state, {
-      localClasses: this.buildClasses({})
+      localClasses: this.buildClasses({} as AlertContainerProps),
     });
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: AlertContainerProps) {
     const classes = this.buildClasses(prevProps);
     if (classes !== this.state.localClasses) {
       this.setState({ localClasses: classes });
     }
   }
 
-  buildClasses(prevProps) {
+  buildClasses(prevProps: AlertContainerProps) {
     if (prevProps.color !== this.props.color) {
-      this.setClasses.delete('alert-' + prevProps.color);
-      this.setClasses.add('alert-' + this.props.color);
+      this.setOfClasses.delete("alert-" + prevProps.color);
+      this.setOfClasses.add("alert-" + this.props.color);
     }
     if (prevProps.showClose !== this.props.showClose) {
-      this.setClasses[this.props.showClose ? 'add' : 'delete']('alert-dismissible');
+      this.setOfClasses[this.props.showClose ? "add" : "delete"](
+        "alert-dismissible"
+      );
     }
-    return Array.from(this.setClasses).flat().join(' ');
+    return Array.from(this.setOfClasses).flat().join(" ");
   }
 
-  mutations(sn, section) {
+  mutations(sn: string, section: Record<string, any>) {
     const { name } = this.props;
     switch (sn) {
-      case name + 'Label':
+      case name + "Label":
         return {
           icon: this.props.icon,
           label: this.props.label,
           classes: {
-            '.': (this.props.classes?.label || '') + ' alert-heading',
-            'icon': (this.props.classes?.icon || '') + ' alert-icon align-text-middle'
-          }
+            ".": (this.props.classes?.label || "") + " alert-heading",
+            icon:
+              (this.props.classes?.icon || "") +
+              " alert-icon align-text-middle",
+          },
         };
-      case name + 'Description':
+      case name + "Description":
         return {
-          classes: (this.props.classes?.description || '') + (this.props.icon ? ' ps-4' : ''),
-          content: this.props.content
+          classes:
+            (this.props.classes?.description || "") +
+            (this.props.icon ? " ps-4" : ""),
+          content: this.props.content,
         };
-      case name + 'Close':
+      case name + "Close":
         return {
           active: this.props.showClose,
-          classes: (this.props.classes?.close || '') + ' btn-close'
+          classes: (this.props.classes?.close || "") + " btn-close",
         };
       default:
         break;
     }
     return super.mutations(sn, section);
   }
-
 }

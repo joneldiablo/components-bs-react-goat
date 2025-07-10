@@ -13,7 +13,7 @@ export interface FileFieldProps extends FieldProps {}
 export interface FileFieldState extends FieldState {}
 
 export default class FileField extends Field<FileFieldProps, FileFieldState> {
-  static defaultProps = {
+  static defaultProps: Partial<FileFieldProps> = {
     ...Field.defaultProps,
     multiple: false,
     format: "base64",

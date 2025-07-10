@@ -80,7 +80,16 @@ export interface TableProps extends ComponentProps {
  * @property {function(any, FormatOptions=): string} number - Formatea los datos a un número.
  * @property {function(any, Object): string} boolean - Formatea los datos a un booleano.
  */
-export const FORMATS = {
+export const FORMATS: Record<
+  string,
+  (
+    raw: any,
+    rawprops: any,
+    data: any,
+    goat: Goat,
+    colName: string
+  ) => React.ReactNode
+> = {
   /**
    * Formatea los datos en crudo a un componente.
    *

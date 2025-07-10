@@ -1,109 +1,121 @@
 import React from "react";
 
-import Field from "./field";
+import Field, { FieldProps, FieldState } from "./field";
 
-export interface DropFileFieldProps {
+export interface DropFileFieldProps extends FieldProps {
   onDragOver?: (e: React.DragEvent<HTMLInputElement>) => void;
   onDragLeave?: (e: React.DragEvent<HTMLInputElement>) => void;
   onDrop?: (e: React.DragEvent<HTMLInputElement>) => void;
 }
 
-export default class DropFileField extends Field<DropFileFieldProps> {
+export interface DropFileFieldState extends FieldState {
+  valueInput: string;
+}
 
-  static jsClass = 'DropFileField';
+export default class DropFileField extends Field<
+  DropFileFieldProps,
+  DropFileFieldState
+> {
+  static jsClass = "DropFileField";
 
-  constructor(props) {
+  constructor(props: DropFileFieldProps) {
     super(props);
-    this.state.localClasses = 'card';
-    this.state.files = [];
+    this.state = this.state as DropFileFieldState;
+    Object.assign(this.state, {
+      localClasses: "card",
+      files: [],
+    });
   }
 
-  onChange(e) {
-    // TODO: arreglar el asunto de contenido inside, 
+  onChange(e: any) {
+    // TODO: arreglar el asunto de contenido inside,
     // si se quita el archivo, no se retorna data
     // quizá se resolvería con permitir setear onInvalid
     const { value, files } = e.target;
     const { localClasses } = this.state;
-    const lc = new Set(localClasses.split(' '));
-    lc.delete('active');
-    lc.delete('filled');
-    lc.delete('border-danger');
+    const lc = new Set(localClasses.split(" "));
+    lc.delete("active");
+    lc.delete("filled");
+    lc.delete("border-danger");
     const error = this.isInvalid(value);
-    if (error) lc.add('border-danger');
-    if (files.length) lc.add('filled');
+    if (error) lc.add("border-danger");
+    if (files.length) lc.add("filled");
     let filesArr = Array.from(files);
-    this.setState({
-      value: filesArr.map(f => f.name).join(', '),
-      valueInput: value,
-      files: filesArr,
-      error,
-      localClasses: Array.from(lc).flat().join(' ')
-    }, () => this.returnData(filesArr));
+    this.setState(
+      {
+        value: filesArr.map((f: any) => f.name).join(", "),
+        valueInput: value,
+        files: filesArr,
+        error,
+        localClasses: Array.from(lc).flat().join(" "),
+      } as any,
+      () => this.returnData(filesArr)
+    );
   }
 
-  onInvalid(e) {
+  onInvalid() {
     const { localClasses } = this.state;
-    const lc = new Set(localClasses.split(' '));
-    lc.delete('active');
-    lc.delete('filled');
-    lc.add('border-danger');
+    const lc = new Set(localClasses.split(" "));
+    lc.delete("active");
+    lc.delete("filled");
+    lc.add("border-danger");
     this.setState({
       error: true,
-      localClasses: Array.from(lc).flat().join(' ')
+      localClasses: Array.from(lc).flat().join(" "),
     });
   }
 
   onDragover = () => {
     const { localClasses } = this.state;
-    const lc = new Set(localClasses.split(' '));
-    lc.add('active');
-    lc.delete('filled');
-    lc.delete('border-danger');
-    this.setState({ localClasses: Array.from(lc).flat().join(' ') });
-  }
+    const lc = new Set(localClasses.split(" "));
+    lc.add("active");
+    lc.delete("filled");
+    lc.delete("border-danger");
+    this.setState({ localClasses: Array.from(lc).flat().join(" ") });
+  };
 
   onDragleave = () => {
     const { localClasses } = this.state;
-    const lc = new Set(localClasses.split(' '));
-    lc.delete('active');
-    this.setState({ localClasses: Array.from(lc).flat().join(' ') });
-  }
+    const lc = new Set(localClasses.split(" "));
+    lc.delete("active");
+    this.setState({ localClasses: Array.from(lc).flat().join(" ") });
+  };
 
-  onUpdate(update) {
+  onUpdate(update: any) {
     const { localClasses } = this.state;
-    const lc = new Set(localClasses.split(' '));
-    lc.delete('active');
-    const newState = {};
-    if (typeof update.value !== 'undefined' && update.value !== null) {
+    const lc = new Set(localClasses.split(" "));
+    lc.delete("active");
+    const newState: any = {};
+    if (typeof update.value !== "undefined" && update.value !== null) {
       if (!update.value.length) {
-        lc.delete('filled');
+        lc.delete("filled");
       } else {
-        lc.add('filled');
+        lc.add("filled");
       }
       newState.files = update.value;
     }
     if (update.reset) {
       if (!newState.length) {
-        lc.delete('filled');
+        lc.delete("filled");
       } else {
-        lc.add('filled');
+        lc.add("filled");
       }
       newState.files = this.props.default || [];
     }
-    newState.localClasses = Array.from(lc).flat().join(' ');
+    newState.localClasses = Array.from(lc).flat().join(" ");
     this.setState(newState);
     super.onUpdate(update);
   }
 
   get type() {
-    return 'file';
+    return "file";
   }
 
   get inputProps() {
     const props = super.inputProps;
     const { accept, multiple } = this.props;
-    const { valueInput, value } = this.state;
-    props.value = !!(value?.length) ? valueInput : value;
+    const { valueInput, value } = this.state as DropFileFieldState;
+    props.value = !!value?.length ? valueInput : value;
     props.accept = accept;
     props.multiple = multiple;
     props.onDragOver = this.onDragover;
@@ -111,25 +123,27 @@ export default class DropFileField extends Field<DropFileFieldProps> {
     props.onDrop = this.onDragleave;
     props.style = {
       opacity: 0,
-      position: 'absolute',
-      width: '100%',
+      position: "absolute",
+      width: "100%",
       top: 0,
       left: 0,
-      height: '100%',
-      cursor: 'pointer'
+      height: "100%",
+      cursor: "pointer",
     };
     return props;
   }
-  content(children = this.props.children) {
+
+  content(children = this.props.children): any {
     const { label } = this.props;
     const { value } = this.state;
-    return React.createElement('div',
+    return React.createElement(
+      "div",
       { className: "card-body" },
-      (!value && label) && this.labelNode,
-      children && (!value ? children[0] : (children[1] || value)),
+      !value && label && this.labelNode,
+      children && (!value ? children[0] : children[1] || value),
       this.inputNode,
-      React.createElement('div', {}, this.errorMessageNode),
-      (!children && value) && React.createElement('p', {}, value)
-    )
+      React.createElement("div", {}, this.errorMessageNode),
+      !children && value && React.createElement("p", {}, value)
+    );
   }
 }
