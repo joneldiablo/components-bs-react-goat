@@ -7,7 +7,7 @@ import type { ComponentProps } from "../../component";
 import schema from "./panel-schema.json";
 
 export interface PanelContainerProps extends ComponentProps {
-  breakpoint?: string;
+  breakpoint?: number;
   contentTop?: Record<string, any>;
   icon?: string;
   iconSize?: string | number;

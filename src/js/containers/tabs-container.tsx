@@ -13,7 +13,7 @@ export interface TabsContainerProps {
   contentClasses?: string;
 }
 
-export default class TabsContainer extends Container<TabsContainerProps> {
+export default class TabsContainer extends Container {
   static jsClass = 'TabsContainer';
   static defaultProps: Partial<TabsContainerProps> = {
     ...Container.defaultProps,
@@ -28,7 +28,7 @@ export default class TabsContainer extends Container<TabsContainerProps> {
     this.setState({ active: key });
   };
 
-  content(children: React.ReactNode = this.props.children): React.ReactNode {
+  content(children: React.ReactNode = this.props.children): ReturnType<Container['content']> {
     const { tabs, navClasses, contentClasses } = this.props;
     const { active } = this.state as any;
     if (tabs && tabs.length) {

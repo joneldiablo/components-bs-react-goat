@@ -1,9 +1,15 @@
 import React, { createRef } from "react";
 import moment from "moment";
 
-import Field from "./field";
+import Field, { FieldProps, FieldState } from "./field";
 
-export default class DateRangeField extends Field {
+export interface DateRangeFieldProps extends FieldProps {}
+export interface DateRangeFieldState extends FieldState {}
+
+export default class DateRangeField<
+  TProps extends DateRangeFieldProps = DateRangeFieldProps,
+  TState extends DateRangeFieldState = DateRangeFieldState
+> extends Field<DateRangeFieldProps, DateRangeFieldState> {
 
   static jsClass = 'DateRangeField';
   static defaultProps = {
@@ -11,16 +17,18 @@ export default class DateRangeField extends Field {
     default: ['', '']
   };
 
-  constructor(props) {
+  inputEnd!: React.RefObject<HTMLInputElement | null>;
+
+  constructor(props: TProps) {
     super(props);
-    this.inputEnd = createRef();
+    this.inputEnd = createRef<HTMLInputElement>();
   }
 
-  isInvalid(value) {
+  isInvalid(value: any[]) {
     let error = super.isInvalid(value);
     this.inputEnd.current?.setCustomValidity('');
     const isAfter = moment(value[0]).isAfter(value[1]);
-    if (isAfter) this.inputEnd.current?.setCustomValidity(this.props.errorMessage);
+    if (isAfter) this.inputEnd.current?.setCustomValidity(String(this.props.errorMessage));
     return (error || isAfter);
   }
 
@@ -28,7 +36,7 @@ export default class DateRangeField extends Field {
     return 'date';
   }
 
-  onChange({ target }) {
+  onChange({ target }: { target: HTMLInputElement }) {
     const { name } = this.props;
     const { value } = this.state;
     const { value: newValue } = target;
@@ -37,7 +45,7 @@ export default class DateRangeField extends Field {
     this.setState({
       value,
       error: this.isInvalid(value)
-    }, () => { if (value.every(v => !!v)) this.returnData() });
+    }, () => { if (value.every((v: any) => !!v)) this.returnData() });
   }
 
   get inputNode() {

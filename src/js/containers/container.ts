@@ -1,8 +1,2 @@
-import Component from '../component';
-
-export default class Container extends Component {
-  static jsClass = 'Container';
-  static defaultProps = {
-    ...Component.defaultProps,
-  };
-}
+export { default } from '@farm-js/react-goat/containers/container';
+export * from '@farm-js/react-goat/containers/container';

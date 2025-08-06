@@ -69,7 +69,7 @@ export default class AlertContainer extends Component<
     return Array.from(this.setOfClasses).flat().join(" ");
   }
 
-  mutations(sn: string, section: Record<string, any>) {
+  mutations(sn: string) {
     const { name } = this.props;
     switch (sn) {
       case name + "Label":
@@ -98,6 +98,6 @@ export default class AlertContainer extends Component<
       default:
         break;
     }
-    return super.mutations(sn, section);
+    return super.mutations(sn);
   }
 }

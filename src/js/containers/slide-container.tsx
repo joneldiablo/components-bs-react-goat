@@ -7,7 +7,7 @@ export interface SlideContainerProps {
   slideClasses?: string;
 }
 
-export default class SlideContainer extends Container<SlideContainerProps> {
+export default class SlideContainer extends Container {
   static jsClass = 'SlideContainer';
   static defaultProps: Partial<SlideContainerProps> = {
     ...Container.defaultProps,
@@ -15,7 +15,7 @@ export default class SlideContainer extends Container<SlideContainerProps> {
     slideClasses: ''
   };
 
-  content(children: React.ReactNode = this.props.children): React.ReactNode {
+  content(children: React.ReactNode = this.props.children): ReturnType<Container['content']> {
     const { options, slideClasses } = this.props;
     const slides = React.Children.map(children, (child, i) => (
       <SplideSlide className={slideClasses} key={i}>{child}</SplideSlide>
