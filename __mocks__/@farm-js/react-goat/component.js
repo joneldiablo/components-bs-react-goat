@@ -8,7 +8,10 @@ class Component extends React.Component {
   }
   addClasses(){return true;}
   deleteClasses(){return true;}
-  render(){return React.createElement(React.Fragment,null,this.props.children);}
+  render(){
+    const Tag = this.tag || 'div';
+    return React.createElement(Tag, { className: this.classes, ...this.eventHandlers }, this.props.children);
+  }
 }
 Component.defaultProps={};
 module.exports = Component;

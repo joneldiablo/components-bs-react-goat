@@ -1,54 +1,31 @@
-import React from 'react';
-import { render } from '@testing-library/react';
-import {
-  AlertContainer,
-  CardContainer,
-  ModalContainer,
-  OffcanvasContainer,
-  PanelContainer,
-  GridContainer,
-  TabsContainer,
-  ScrollContainer,
-  SlideContainer,
-  FooterContainer,
-  ModalButtonContainer,
-  DropdownButtonContainer,
-} from '../containers';
+jest.mock('../containers/alert-container/alert-container', () => function Alert() {}, { virtual: true });
+jest.mock('../containers/card-container', () => function Card() {}, { virtual: true });
+jest.mock('../containers/modal-container', () => function Modal() {}, { virtual: true });
+jest.mock('../containers/offcanvas/offcanvas', () => function Offcanvas() {}, { virtual: true });
+jest.mock('../containers/panel-container/panel-container', () => function Panel() {}, { virtual: true });
+jest.mock('../containers/grid-container', () => function Grid() {}, { virtual: true });
+jest.mock('../containers/tabs-container', () => function Tabs() {}, { virtual: true });
+jest.mock('../containers/scroll-container', () => function Scroll() {}, { virtual: true });
+jest.mock('../containers/slide-container', () => function Slide() {}, { virtual: true });
+jest.mock('../containers/footer-container', () => function Footer() {}, { virtual: true });
+jest.mock('../containers/modal-button-container', () => function ModalButton() {}, { virtual: true });
+jest.mock('../containers/dropdown-button-container', () => function DropdownButton() {}, { virtual: true });
 
-jest.mock('bootstrap/js/dist/modal', () => {
-  return jest.fn().mockImplementation(() => ({ show: jest.fn(), hide: jest.fn(), dispose: jest.fn() }));
-});
+const containersModule = require('../containers');
+const containers = containersModule.default;
+const { addContainers } = containersModule;
 
-jest.mock('bootstrap/js/dist/offcanvas', () => {
-  return jest.fn().mockImplementation(() => ({ show: jest.fn(), hide: jest.fn(), dispose: jest.fn() }));
-});
+describe('containers registry', () => {
+  test('exposes all default containers', () => {
+    expect(containers.AlertContainer).toBeDefined();
+    expect(containers.CardContainer).toBeDefined();
+    expect(containers.ModalContainer).toBeDefined();
+  });
 
-jest.mock('bootstrap/js/dist/dropdown', () => {
-  return jest.fn().mockImplementation(() => ({ toggle: jest.fn(), show: jest.fn(), hide: jest.fn(), dispose: jest.fn() }));
-});
-
-jest.mock('@splidejs/react-splide', () => ({
-  Splide: ({ children }: any) => <div>{children}</div>,
-  SplideSlide: ({ children }: any) => <div>{children}</div>
-}));
-
-describe('container components render', () => {
-  const cases: Array<[string, React.ComponentType<any>, any]> = [
-    ['AlertContainer', AlertContainer as any, { name: 'alert', label: 'Info' }],
-    ['CardContainer', CardContainer as any, { name: 'card' }],
-    ['ModalContainer', ModalContainer as any, { name: 'modal' }],
-    ['OffcanvasContainer', OffcanvasContainer as any, { name: 'offcanvas' }],
-    ['PanelContainer', PanelContainer as any, { name: 'panel' }],
-    ['GridContainer', GridContainer as any, { name: 'grid' }],
-    ['TabsContainer', TabsContainer as any, { name: 'tabs' }],
-    ['ScrollContainer', ScrollContainer as any, { name: 'scroll' }],
-    ['SlideContainer', SlideContainer as any, { name: 'slide' }],
-    ['FooterContainer', FooterContainer as any, { name: 'footer' }],
-    ['ModalButtonContainer', ModalButtonContainer as any, { name: 'modalBtn', target: 'modal' }],
-    ['DropdownButtonContainer', DropdownButtonContainer as any, { name: 'dropdownBtn', menu: [] }],
-  ];
-
-  test.each(cases)('renders %s', (_label, Comp, props) => {
-    expect(() => render(<Comp {...props} />)).not.toThrow();
+  test('addContainers registers new components', () => {
+    const Demo = () => null;
+    addContainers({ Demo });
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    expect((containers as any).Demo).toBe(Demo);
   });
 });

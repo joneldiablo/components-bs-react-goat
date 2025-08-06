@@ -19,10 +19,13 @@
     "@farm-js/react-goat": "^1.0.11",
     "@floating-ui/react": "^0.27.13",
     "@splidejs/react-splide": "^0.7.12",
-    "bootstrap": "^5.3.7",
     "bytes": "^3.1.2",
     "dbl-utils": "^1.0.12",
     "lzma": "^2.3.2"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.7"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

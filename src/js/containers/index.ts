@@ -11,6 +11,17 @@ import FooterContainer from "./footer-container";
 import ModalButtonContainer from "./modal-button-container";
 import DropdownButtonContainer from "./dropdown-button-container";
 
+/**
+ * Registry of available container components.
+ *
+ * @example
+ * ```ts
+ * import containers, { addContainers } from "./containers";
+ * const Extra = () => null;
+ * addContainers({ Extra });
+ * console.log(containers.Extra); // Extra
+ * ```
+ */
 const CONTAINERS = {
   AlertContainer,
   CardContainer,
@@ -26,7 +37,14 @@ const CONTAINERS = {
   DropdownButtonContainer,
 };
 
-export const addContainers = (newContainers: Record<string, any>) => {
+/**
+ * Merges custom containers into the registry.
+ *
+ * @param newContainers - mapping of names to container components.
+ */
+export const addContainers = (
+  newContainers: Record<string, any>
+): void => {
   Object.assign(CONTAINERS, newContainers);
 };
 
@@ -45,4 +63,7 @@ export {
   DropdownButtonContainer,
 };
 
+/**
+ * All registered container components.
+ */
 export default CONTAINERS;
