@@ -6,7 +6,7 @@ export interface GridContainerProps {
   colClasses?: string;
 }
 
-export default class GridContainer extends Container<GridContainerProps> {
+export default class GridContainer extends Container {
   static jsClass = 'GridContainer';
   static defaultProps: Partial<GridContainerProps> = {
     ...Container.defaultProps,
@@ -14,7 +14,7 @@ export default class GridContainer extends Container<GridContainerProps> {
     colClasses: 'col'
   };
 
-  content(children: React.ReactNode = this.props.children): React.ReactNode {
+  content(children: React.ReactNode = this.props.children): ReturnType<Container['content']> {
     const { rowClasses, colClasses } = this.props;
     return (
       <div className={rowClasses}>

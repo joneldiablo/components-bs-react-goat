@@ -1,8 +1,8 @@
 import React from "react";
 import eventHandler from "dbl-utils/event-handler";
-import Component from "../component";
+import Component, { ComponentProps } from "../component";
 
-export interface ModalButtonContainerProps {
+export interface ModalButtonContainerProps extends ComponentProps {
   target: string;
   buttonClasses?: string;
 }

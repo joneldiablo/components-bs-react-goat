@@ -1,20 +1,22 @@
 import React from "react";
 import Container from "./container";
 
+import type { Classes } from "../component";
+
 export interface FooterContainerProps {
-  classes?: string;
+  classes?: Classes;
 }
 
-export default class FooterContainer extends Container<FooterContainerProps> {
+export default class FooterContainer extends Container {
   static jsClass = 'FooterContainer';
   static defaultProps: Partial<FooterContainerProps> = {
     ...Container.defaultProps,
     classes: 'footer bg-light py-3'
   };
 
-  tag = 'footer';
+  tag: keyof React.JSX.IntrinsicElements = 'footer';
 
-  content(children: React.ReactNode = this.props.children): React.ReactNode {
-    return <div className={this.props.classes}>{children}</div>;
+  content(children: React.ReactNode = this.props.children): ReturnType<Container['content']> {
+    return <div className={String(this.props.classes)}>{children}</div>;
   }
 }
