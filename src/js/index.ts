@@ -9,6 +9,7 @@ export { default as Navbar } from "./navigation/navbar";
 export { default as Navigation } from "./navigation/navigation";
 export { default as SideNavigation } from "./navigation/side-navigation";
 export { default as Table } from "./tables/table";
+export { default as components } from "./components";
 
 export * from "./containers";
 export * from "./fields";

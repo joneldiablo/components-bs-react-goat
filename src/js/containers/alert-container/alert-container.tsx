@@ -8,11 +8,34 @@ import Component, {
 
 import schema from "./alert-schema.json";
 
+/**
+ * Props for {@link AlertContainer}.
+ */
 export interface AlertContainerProps extends ComplexComponentProps {
-  classes: any;
+  /**
+   * Custom CSS classes for alert sections.
+   */
+  classes: Record<string, string>;
 }
-export interface AlertContainerState extends ComplexComponentState {}
 
+/**
+ * State for {@link AlertContainer}.
+ */
+export interface AlertContainerState extends ComplexComponentState {
+  /**
+     * Classes built from current props.
+     */
+  localClasses: string;
+}
+
+/**
+ * Bootstrap alert wrapper component.
+ *
+ * @example
+ * ```tsx
+ * <AlertContainer name="notice" label="Info" color="warning" />
+ * ```
+ */
 export default class AlertContainer extends Component<
   AlertContainerProps,
   AlertContainerState
@@ -39,13 +62,13 @@ export default class AlertContainer extends Component<
   static dontBuildContent = true;
   static wrapper = false;
   classes = "alert fade show shadow-sm";
-  setOfClasses;
+  setOfClasses: Set<string>;
 
   constructor(props: AlertContainerProps) {
     super(props);
-    this.setOfClasses = new Set<String>();
+    this.setOfClasses = new Set<string>();
     Object.assign(this.state, {
-      localClasses: this.buildClasses({} as AlertContainerProps),
+      localClasses: this.buildClasses(),
     });
   }
 
@@ -56,12 +79,18 @@ export default class AlertContainer extends Component<
     }
   }
 
-  buildClasses(prevProps: AlertContainerProps) {
-    if (prevProps.color !== this.props.color) {
-      this.setOfClasses.delete("alert-" + prevProps.color);
+  /**
+   * Builds the CSS class list when props change.
+   */
+  buildClasses(prevProps?: AlertContainerProps): string {
+    const prev = prevProps || ({} as AlertContainerProps);
+    if (prev.color !== this.props.color) {
+      if (prev.color) {
+        this.setOfClasses.delete("alert-" + prev.color);
+      }
       this.setOfClasses.add("alert-" + this.props.color);
     }
-    if (prevProps.showClose !== this.props.showClose) {
+    if (prev.showClose !== this.props.showClose) {
       this.setOfClasses[this.props.showClose ? "add" : "delete"](
         "alert-dismissible"
       );
@@ -69,6 +98,9 @@ export default class AlertContainer extends Component<
     return Array.from(this.setOfClasses).flat().join(" ");
   }
 
+  /**
+   * Mutates schema sections with dynamic props.
+   */
   mutations(sn: string, section: Record<string, any>) {
     const { name } = this.props;
     switch (sn) {
